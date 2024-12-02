@@ -150,5 +150,3 @@ pip install flask openai
 
 ---
 
-## **License**
-This project is licensed under the MIT License.
