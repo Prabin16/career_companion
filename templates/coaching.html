@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Coaching</title>
+</head>
+<body>
+    <h1>Career Coaching</h1>
+    <form id="coachingForm">
+        <label for="careerGoal">Career Goal:</label>
+        <textarea id="careerGoal" name="careerGoal" rows="4" cols="50" placeholder="Describe your career goal..." required></textarea>
+        <br><br>
+        <button type="submit">Get Advice</button>
+    </form>
+
+    <h2>Career Advice:</h2>
+    <div id="adviceOutput"></div>
+
+    <script>
+        document.getElementById('coachingForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const careerGoal = document.getElementById('careerGoal').value;
+
+            const response = await fetch('/coaching', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ career_goal: careerGoal }),
+            });
+
+            const data = await response.json();
+            document.getElementById('adviceOutput').innerText = data.advice || "Error fetching advice.";
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+</head>
+<body>
+    <h1>Resume Builder</h1>
+    <form id="resumeForm">
+        <label for="jobTitle">Job Title:</label>
+        <input type="text" id="jobTitle" name="jobTitle" required>
+        <br><br>
+        <label for="skills">Skills (comma-separated):</label>
+        <input type="text" id="skills" name="skills" placeholder="e.g., Python, Teamwork" required>
+        <br><br>
+        <button type="submit">Generate Resume</button>
+    </form>
+
+    <h2>Generated Resume:</h2>
+    <div id="resumeOutput"></div>
+
+    <script>
+        document.getElementById('resumeForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const jobTitle = document.getElementById('jobTitle').value;
+    const skills = document.getElementById('skills').value.split(',');
+
+    const response = await fetch('/resume', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ job_title: jobTitle, skills: skills }),
+    });
+
+    const data = await response.json();
+    console.log(data);
+    document.getElementById('resumeOutput').innerText = data.resume || "Error generating resume.";
+});
+
+    </script>
+</body>
+</html>

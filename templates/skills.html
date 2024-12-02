@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Recommendations</title>
+</head>
+<body>
+    <h1>Skill Recommendations</h1>
+    <form id="skillsForm">
+        <label for="currentRole">Current Role:</label>
+        <input type="text" id="currentRole" name="currentRole" placeholder="e.g., Software Engineer" required>
+        <br><br>
+        <button type="submit">Get Skill Recommendations</button>
+    </form>
+
+    <h2>Recommended Skills:</h2>
+    <div id="skillsOutput"></div>
+
+    <script>
+        document.getElementById('skillsForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const currentRole = document.getElementById('currentRole').value;
+
+            // Send POST request to the skills API
+            const response = await fetch('/skills', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ current_role: currentRole }),
+            });
+
+            const data = await response.json();
+            document.getElementById('skillsOutput').innerText = data.skills || "Error fetching skill recommendations.";
+        });
+    </script>
+</body>
+</html>

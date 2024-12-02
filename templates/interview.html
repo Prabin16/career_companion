@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Simulator</title>
+</head>
+<body>
+    <h1>Interview Simulator</h1>
+    <form id="interviewForm">
+        <label for="jobTitle">Job Title:</label>
+        <input type="text" id="jobTitle" name="jobTitle" placeholder="Enter the job title" required>
+        <br><br>
+        <button type="submit">Generate Interview Questions</button>
+    </form>
+
+    <h2>Interview Questions:</h2>
+    <div id="questionsOutput"></div>
+
+    <script>
+        document.getElementById('interviewForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const jobTitle = document.getElementById('jobTitle').value;
+
+            const response = await fetch('/interview', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ job_title: jobTitle }),
+            });
+
+            const data = await response.json();
+            document.getElementById('questionsOutput').innerText = data.questions || "Error generating questions.";
+        });
+    </script>
+</body>
+</html>
