@@ -36,8 +36,8 @@ pip install flask openai
 
 ### **1. Clone the Repository**
 ```bash
-git clone https://github.com/your-username/career-companion.git
-cd career-companion
+git clone https://github.com/Prabin16/career_companion
+cd career_companion
 ```
 
 ### **2. Set Your OpenAI API Key**
