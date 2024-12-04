@@ -1,10 +1,14 @@
 from flask import Flask, render_template, request, jsonify
-import openai
 import os
+from flask_cors import CORS
+import openai
+
 
 # Get the API key from the environment
 openai.api_key = os.getenv("OPENAI_API_KEY")
+print(openai.api_key)
 app = Flask(__name__)
+CORS(app)
 
 # Helper function to generate text using GPT-3.5-Turbo
 def generate_text(messages, max_tokens=200, model="gpt-3.5-turbo"):
